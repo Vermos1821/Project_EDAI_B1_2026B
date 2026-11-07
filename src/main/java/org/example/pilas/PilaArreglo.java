@@ -1,0 +1,113 @@
+package org.example.pilas;
+
+/**
+ * Pila de enteros implementada con un arreglo de capacidad fija.
+ * El fondo de la pila es la posicion 0 y tope guarda el indice del
+ * ultimo elemento apilado (-1 cuando la pila esta vacia).
+ */
+public class PilaArreglo {
+
+    /** Arreglo que almacena los elementos; datos[0] es el fondo. */
+    private int[] datos;
+
+    /** Indice del elemento del tope; -1 si la pila esta vacia. */
+    private int tope;
+
+    /**
+     * Crea una pila vacia con la capacidad indicada.
+     * @param capacidad numero maximo de elementos que puede almacenar
+     */
+    public PilaArreglo(int capacidad) {
+        datos = new int[capacidad];
+        tope = -1;
+    }
+
+    /**
+     * Agrega un elemento en el tope.
+     * @param dato codigo de la pagina visitada a apilar
+     * @throws IllegalStateException si la pila esta llena (desbordamiento)
+     */
+    public void push(int dato) {
+        if (estaLlena()) {
+            throw new IllegalStateException("Pila llena");
+        }
+
+        tope++;
+        datos[tope] = dato;
+    }
+
+    /**
+     * Quita el elemento del tope y lo devuelve.
+     * @return el elemento que estaba en el tope
+     * @throws IllegalStateException si la pila esta vacia (subdesbordamiento)
+     */
+    public int pop() {
+        if (estaVacia()) {
+            throw new IllegalStateException("Pila vacia");
+        }
+
+        int dato = datos[tope];
+        tope--;
+        return dato;
+    }
+
+    /**
+     * Consulta el elemento del tope sin quitarlo.
+     * @return el elemento del tope
+     * @throws IllegalStateException si la pila esta vacia (subdesbordamiento)
+     */
+    public int peek() {
+        if (estaVacia()) {
+            throw new IllegalStateException("Pila vacia");
+        }
+
+        return datos[tope];
+    }
+
+    /**
+     * Indica si la pila no tiene elementos.
+     * @return true si la pila esta vacia
+     */
+    public boolean estaVacia() {
+        return tope == -1;
+    }
+
+    /**
+     * Indica si la pila alcanzo su capacidad.
+     * @return true si la pila esta llena
+     */
+    public boolean estaLlena() {
+        return tope == datos.length - 1;
+    }
+
+    /**
+     * Cuenta los elementos de la pila.
+     * @return la cantidad de elementos apilados
+     */
+    public int size() {
+        return tope + 1;
+    }
+
+    /**
+     * Describe el estado de la pila: contenido del fondo al tope y valor de tope.
+     * No es una operacion de la pila; solo sirve para mostrar su estado.
+     * @return texto con el estado de la pila
+     */
+    @Override
+    public String toString() {
+        if(estaVacia()){
+            return "vacia | tope = -1";
+        }
+        String resultado = "(";
+
+        for(int i = 0; i <= tope; i++){
+            resultado += datos[i];
+            if(i < tope){
+                resultado += ", ";
+            }
+        }
+
+        resultado += ") | tope " + tope;
+        return resultado;
+    }
+}
