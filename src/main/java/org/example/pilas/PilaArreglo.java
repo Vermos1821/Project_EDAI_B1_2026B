@@ -10,12 +10,12 @@ public class PilaArreglo {
     /** Arreglo que almacena los elementos; datos[0] es el fondo. */
     private int[] datos;
 
-    /** Indice del elemento del tope; -1 si la pila esta vacia. */
+    /** Índice del elemento del tope; -1 si la pila esta vacía. */
     private int tope;
 
     /**
-     * Crea una pila vacia con la capacidad indicada.
-     * @param capacidad numero maximo de elementos que puede almacenar
+     * Crea una pila vacía con la capacidad indicada.
+     * @param capacidad número máximo de elementos que puede almacenar
      */
     public PilaArreglo(int capacidad) {
         datos = new int[capacidad];
@@ -24,7 +24,7 @@ public class PilaArreglo {
 
     /**
      * Agrega un elemento en el tope.
-     * @param dato codigo de la pagina visitada a apilar
+     * @param dato codigo de la página visitada a apilar
      * @throws IllegalStateException si la pila esta llena (desbordamiento)
      */
     public void push(int dato) {
@@ -39,7 +39,7 @@ public class PilaArreglo {
     /**
      * Quita el elemento del tope y lo devuelve.
      * @return el elemento que estaba en el tope
-     * @throws IllegalStateException si la pila esta vacia (subdesbordamiento)
+     * @throws IllegalStateException si la pila esta vacía (subdesbordamiento)
      */
     public int pop() {
         if (estaVacia()) {

@@ -11,7 +11,6 @@ public class Color {
 
     // Estilos
     public static final String NEGRITA = "\u001B[1m";
-    public static final String SUBRAYADO = "\u001B[4m";
 
     // Colores principales
     public static final String MORADO = "\u001B[35m";
