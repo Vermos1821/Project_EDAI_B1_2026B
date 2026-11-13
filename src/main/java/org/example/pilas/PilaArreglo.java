@@ -18,6 +18,10 @@ public class PilaArreglo {
      * @param capacidad número máximo de elementos que puede almacenar
      */
     public PilaArreglo(int capacidad) {
+        if (capacidad <= 0) {
+            throw new IllegalArgumentException("La capacidad debe ser positivo");
+        }
+
         datos = new int[capacidad];
         tope = -1;
     }
@@ -39,11 +43,11 @@ public class PilaArreglo {
     /**
      * Quita el elemento del tope y lo devuelve.
      * @return el elemento que estaba en el tope
-     * @throws IllegalStateException si la pila esta vacía (subdesbordamiento)
+     * @throws IllegalStateException si la pila esta vacía (overflow)
      */
     public int pop() {
         if (estaVacia()) {
-            throw new IllegalStateException("Pila vacia");
+            throw new IllegalStateException("Pila vacía");
         }
 
         int dato = datos[tope];
@@ -54,11 +58,11 @@ public class PilaArreglo {
     /**
      * Consulta el elemento del tope sin quitarlo.
      * @return el elemento del tope
-     * @throws IllegalStateException si la pila esta vacia (subdesbordamiento)
+     * @throws IllegalStateException si la pila esta vacía (overflow)
      */
     public int peek() {
         if (estaVacia()) {
-            throw new IllegalStateException("Pila vacia");
+            throw new IllegalStateException("Pila vacía");
         }
 
         return datos[tope];
@@ -86,6 +90,22 @@ public class PilaArreglo {
      */
     public int size() {
         return tope + 1;
+    }
+
+    public int getTope(){
+        return tope;
+    }
+
+    public int getCapacidad(){
+        return datos.length;
+    }
+
+    public int getDato(int indice){
+        if(indice < 0 || indice >= datos.length) {
+            throw new IndexOutOfBoundsException("Índice fuera del arreglo");
+        }
+
+        return datos[indice];
     }
 
     /**
