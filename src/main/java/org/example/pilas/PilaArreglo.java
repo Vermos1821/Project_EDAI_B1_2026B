@@ -92,14 +92,32 @@ public class PilaArreglo {
         return tope + 1;
     }
 
+    /**
+     * Obtiene el índice actual del elemento que se encuentra ubicado
+     * en el tope de la pila.
+     *
+     * @return índice del tope; -1 si la pila está vacía
+     */
     public int getTope(){
         return tope;
     }
 
+    /**
+     * Obtiene la capacidad máxima de almacenamiento de la pila.
+     *
+     * @return cantidad máxima de elementos que puede almacenar la pila
+     */
     public int getCapacidad(){
         return datos.length;
     }
 
+    /**
+     * Obtiene el elemento que está almacenado en una posición específica del arreglo.
+     *
+     * @param indice posición del arreglo que se desea consultar
+     * @return elemento almacenado en la posición indicada
+     * @throws IndexOutOfBoundsException si el índice está fuera de los límites del arreglo
+     */
     public int getDato(int indice){
         if(indice < 0 || indice >= datos.length) {
             throw new IndexOutOfBoundsException("Índice fuera del arreglo");
