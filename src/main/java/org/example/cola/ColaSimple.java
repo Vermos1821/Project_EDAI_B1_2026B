@@ -1,181 +1,246 @@
 
 package org.example.cola;
-
 /**
- * Estructura de datos de tipo cola simple
- * utilizando un arreglo de tamaño fijo.
- * Esta implementación no reutiliza las posiciones liberadas
- * al inicio del arreglo después de eliminar elementos.
+ * Cola de enteros implementada mediante un arreglo de capacidad fija.
+ * El frente indica el índice del primer elemento almacenado y fin
+ * indica el índice del último elemento insertado.
+ * Cuando la cola está vacía, fin tiene el valor -1.
  */
-public class ColaSimple implements EstructuraCola {
-
-    /** Arreglo que almacena los elementos de la cola. */
-    private int[] elementos;
-
-    /** Índice del primer elemento de la cola. */
-    private int frente;
-
-    /** Índice del último elemento de la cola. */
-    private int fin;
-
-    /** Cantidad actual de elementos almacenados. */
-    private int cantidad;
+public class ColaSimple {
 
     /**
-     * Construye una cola simple con una capacidad determinada.
+     * Arreglo que almacena los elementos de la cola.
+     */
+    private int[] datos;
+
+    /**
+     * Índice del primer elemento de la cola.
+     */
+    private int frente;
+
+    /**
+     * Índice del último elemento de la cola.
+     * Tiene el valor -1 cuando la cola está vacía.
+     */
+    private int fin;
+
+    /**
+     * Crea una cola simple vacía con la capacidad indicada.
+     * @param capacidad número máximo de elementos que puede almacenar.
      * @throws IllegalArgumentException si la capacidad es menor o igual a cero.
      */
     public ColaSimple(int capacidad) {
 
+        // Comprueba que la capacidad sea válida.
         if (capacidad <= 0) {
             throw new IllegalArgumentException(
                     "La capacidad debe ser mayor que cero."
             );
         }
 
-        elementos = new int[capacidad];
+        // Crea el arreglo con la capacidad indicada.
+        datos = new int[capacidad];
+
+        // Inicializa el frente en la primera posición.
         frente = 0;
+
+        // Indica que la cola inicialmente está vacía.
         fin = -1;
-        cantidad = 0;
     }
 
     /**
      * Inserta un elemento al final de la cola.
-     * @throws IllegalStateException si la cola está llena
-     * o si no existen posiciones posteriores disponibles.
+     * @param dato elemento que se desea insertar.
+     * @throws IllegalStateException si la cola está llena (desbordamiento).
      */
-    @Override
     public void enqueue(int dato) {
 
+        // Comprueba si se alcanzó la última posición del arreglo.
         if (estaLlena()) {
-            throw new IllegalStateException("La cola está llena.");
-        }
-
-        if (fin == elementos.length - 1) {
             throw new IllegalStateException(
-                    "No existen posiciones disponibles al final de la cola simple."
+                    "Cola simple llena. No se pueden insertar más elementos."
             );
         }
 
-        elementos[++fin] = dato;
-        cantidad++;
+        // Si la cola está vacía, el primer elemento comienza en cero.
+        if (estaVacia()) {
+            frente = 0;
+        }
+
+        // Avanza el índice final una posición.
+        fin++;
+
+        // Almacena el elemento en la nueva posición final.
+        datos[fin] = dato;
     }
 
     /**
-     * Elimina y devuelve el elemento ubicado al frente.
-     * @throws IllegalStateException si la cola está vacía.
+     * Elimina y devuelve el elemento ubicado al frente de la cola.
+     * @return elemento que fue eliminado.
+     * @throws IllegalStateException si la cola está vacía (subdesbordamiento).
      */
-    @Override
     public int dequeue() {
 
+        // Comprueba si existen elementos para eliminar.
         if (estaVacia()) {
-            throw new IllegalStateException("La cola está vacía.");
+            throw new IllegalStateException(
+                    "Cola simple vacía. No se pueden eliminar elementos."
+            );
         }
 
-        int eliminado = elementos[frente++];
+        // Guarda el elemento ubicado en el frente.
+        int dato = datos[frente];
 
-        cantidad--;
+        // Comprueba si era el último elemento.
+        if (frente == fin) {
 
-        if (cantidad == 0) {
+            // Reinicia los índices porque la cola queda vacía.
             frente = 0;
             fin = -1;
+
+        } else {
+
+            // Avanza el frente hacia el siguiente elemento.
+            frente++;
         }
 
-        return eliminado;
+        // Devuelve el elemento eliminado.
+        return dato;
     }
 
     /**
-     * Consulta el primer elemento sin eliminarlo.
-     * @return elemento ubicado al frente de la cola.
+     * Consulta el elemento ubicado al frente sin eliminarlo.
+     * @return elemento que se encuentra al frente.
      * @throws IllegalStateException si la cola está vacía.
      */
-    @Override
-    public int front() {
+    public int peek() {
 
+        // Comprueba si la cola contiene elementos.
         if (estaVacia()) {
-            throw new IllegalStateException("La cola está vacía.");
+            throw new IllegalStateException(
+                    "No se puede consultar. La cola está vacía."
+            );
         }
 
-        return elementos[frente];
+        // Devuelve el elemento del frente.
+        return datos[frente];
     }
 
     /**
-     * Comprueba si la cola no contiene elementos.
-     * @return true si está vacía; false en caso contrario.
+     * Indica si la cola no contiene elementos.
+     * @return true si la cola está vacía; false en caso contrario.
      */
-    @Override
     public boolean estaVacia() {
-        return cantidad == 0;
+
+        // Si fin es -1, no existen elementos almacenados.
+        return fin == -1;
     }
 
     /**
-     * Comprueba si se alcanzó la capacidad máxima.
-     * @return true si está llena; false en caso contrario.
+     * Indica si la cola alcanzó la última posición del arreglo.
+     * @return true si la cola está llena; false en caso contrario.
      */
-    @Override
     public boolean estaLlena() {
-        return cantidad == elementos.length;
+
+        // Comprueba si el índice final llegó al último espacio.
+        return fin == datos.length - 1;
     }
 
     /**
-     * Obtiene la cantidad de elementos almacenados.
-     * @return número actual de elementos.
+     * Obtiene la cantidad actual de elementos de la cola.
+     * @return número de elementos almacenados.
      */
-    @Override
     public int size() {
-        return cantidad;
-    }
 
-    /**
-     * Obtiene la capacidad máxima de la cola.
-     * @return tamaño del arreglo.
-     */
-    @Override
-    public int capacidad() {
-        return elementos.length;
-    }
-
-    /**
-     * Devuelve el nombre de la estructura implementada.
-     */
-    @Override
-    public String tipo() {
-        return "COLA SIMPLE";
-    }
-
-    /**
-     * Genera una vista de todas las posiciones del arreglo.
-     */
-    @Override
-    public String[] obtenerVista() {
-
-        String[] vista = new String[elementos.length];
-
-        for (int i = 0; i < elementos.length; i++) {
-
-            if (!estaVacia() && i >= frente && i <= fin) {
-                vista[i] = String.valueOf(elementos[i]);
-            } else {
-                vista[i] = "LIBRE";
-            }
+        // Si está vacía, la cantidad de elementos es cero.
+        if (estaVacia()) {
+            return 0;
         }
 
-        return vista;
+        // Calcula los elementos comprendidos entre frente y fin.
+        return fin - frente + 1;
     }
 
     /**
-     * Obtiene el índice del primer elemento.
+     * Obtiene el índice actual del frente.
+     * @return índice del frente; -1 cuando la cola está vacía.
      */
-    @Override
-    public int indiceFrente() {
+    public int getFrente() {
+
+        // Devuelve -1 si no existen elementos.
         return estaVacia() ? -1 : frente;
     }
 
     /**
-     * Obtiene el índice del último elemento.
+     * Obtiene el índice actual del final.
+     * @return índice del final; -1 cuando la cola está vacía.
+     */
+    public int getFin() {
+
+        return fin;
+    }
+
+    /**
+     * Obtiene la capacidad máxima de almacenamiento.
+     *
+     * @return cantidad máxima de elementos que puede almacenar.
+     */
+    public int getCapacidad() {
+
+        return datos.length;
+    }
+
+    /**
+     * Obtiene el elemento almacenado en una posición específica.
+     *
+     * @param indice posición del arreglo que se desea consultar.
+     * @return elemento almacenado en la posición indicada.
+     * @throws IndexOutOfBoundsException si el índice está fuera del arreglo.
+     */
+    public int getDato(int indice) {
+
+        // Comprueba que el índice pertenezca al arreglo.
+        if (indice < 0 || indice >= datos.length) {
+            throw new IndexOutOfBoundsException(
+                    "Índice fuera de los límites del arreglo."
+            );
+        }
+
+        // Devuelve el elemento de la posición indicada.
+        return datos[indice];
+    }
+
+    /**
+     * Describe el estado actual de la cola simple.
+     *
+     * @return texto con los elementos desde el frente hasta el final.
      */
     @Override
-    public int indiceFinal() {
-        return estaVacia() ? -1 : fin;
+    public String toString() {
+
+        // Comprueba si la cola está vacía.
+        if (estaVacia()) {
+            return "Cola vacía | frente = -1 | fin = -1";
+        }
+
+        // Variable que almacena la representación de la cola.
+        String resultado = "(";
+
+        // Recorre los elementos desde el frente hasta el final.
+        for (int i = frente; i <= fin; i++) {
+
+            // Agrega el elemento actual.
+            resultado += datos[i];
+
+            // Agrega una coma entre los elementos.
+            if (i < fin) {
+                resultado += ", ";
+            }
+        }
+
+        // Agrega los índices actuales.
+        resultado += ") | frente = " + frente + " | fin = " + fin;
+
+        return resultado;
     }
 }
