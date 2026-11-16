@@ -51,7 +51,7 @@ public class MenuPila {
     }
 
     /**
-     * Lee un número entero que fue ingresado por el usuario y valida que
+     * Lee un número entero que fue ingresado por el usuario y válida que
      * la entrada sea correcta.
      *
      * @param scanner objeto ({@code Scanner}) utilizado para leer la entrada

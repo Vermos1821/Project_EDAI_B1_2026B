@@ -10,7 +10,7 @@ public class PilaArreglo {
     /** Arreglo que almacena los elementos; datos[0] es el fondo. */
     private int[] datos;
 
-    /** Índice del elemento del tope; -1 si la pila esta vacía. */
+    /** Índice del elemento del tope; -1 si la pila está vacía. */
     private int tope;
 
     /**
