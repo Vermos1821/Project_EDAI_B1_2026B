@@ -41,6 +41,7 @@ public class MenuPila {
         System.out.println(Color.CIAN + "       [5] " + Color.RESET + "Verificar si está llena");
         System.out.println(Color.CIAN + "       [6] " + Color.RESET + "Consultar tamaño");
         System.out.println(Color.CIAN + "       [7] " + Color.RESET + "Mostrar contenido de la pila");
+        System.out.println(Color.CIAN + "       [8] " + Color.RESET + "Convertir expresiones infijas");
 
         Color.separador();
 
