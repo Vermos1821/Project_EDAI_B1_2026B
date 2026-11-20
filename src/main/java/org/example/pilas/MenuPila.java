@@ -5,10 +5,16 @@ import org.example.util.Color;
 import java.util.Scanner;
 
 /**
- * Gestiona el submenú de operaciones de la estructura de datos Pila.
- * Permite realizar las operaciones básicas de una pila implementada
- * a través de un arreglo, ilustrando el procedimiento y los estados
- * de la estructura durante cada operación
+ * Hace la gestión de la interacción entre el usuario y el TAD Pila implementado
+ * a través de un arreglo de capacidad fija.
+ *
+ * <p>Brinda un menú interactivo para poner en ejecución las operaciones
+ * fundamentales de la estructura, controlar sus estados y visualizar
+ * los cambios producidos durante cada procedimiento.</p>
+ *
+ * <p>También incorpora la conversión de expresiones infijas a notación
+ * postfija y prefija, usando la pila como estructura auxiliar para
+ * administrar los operadores y respetar su precedencia y asociatividad.</p>
  */
 public class MenuPila {
     /**
@@ -52,12 +58,12 @@ public class MenuPila {
     }
 
     /**
-     * Lee un número entero que fue ingresado por el usuario y válida que
-     * la entrada sea correcta.
+     * Lee un número entero que fue ingresado por el usuario y valida
+     * que la entrada sea correcta.
      *
-     * @param scanner objeto ({@code Scanner}) utilizado para leer la entrada
-     * @param mensaje texto que se muestra al solicitar el número
-     * @return número entero que fue ingresado por el usuario
+     * @param scanner Objeto ({@code Scanner}) usado para leer la entrada.
+     * @param mensaje Texto que se muestra al solicitar el número.
+     * @return Número entero que fue ingresado por el usuario.
      */
     private int leerEntero(Scanner scanner, String mensaje){
         while(true){
@@ -77,7 +83,8 @@ public class MenuPila {
     /**
      * Solicita al usuario la capacidad inicial de la pila y crea
      * una instancia de {@link PilaArreglo} con la capacidad indicada.
-     * @param scanner objeto ({@code Scanner}) usado para leer la capacidad
+     *
+     * @param scanner Objeto ({@code Scanner}) usado para leer la capacidad.
      */
     private void iniciarPila(Scanner scanner){
         int capacidad;
@@ -98,13 +105,15 @@ public class MenuPila {
 
         Color.exito("La pila fue creada con éxito. ");
         Color.info("Capacidad establecida: " + capacidad + " elementos.");
+
         mostrarEstadoDetallado();
     }
 
     /**
      * Muestra de manera detallada el estado actual de la pila.
-     * Representa los elementos almacenados, las posiciones disponibles,
-     * el índice del tope, la cantidad de elementos y la capacidad máxima.
+     *
+     * <p>Representa los elementos almacenados, las posiciones disponibles,
+     * el índice del tope, la cantidad de elementos y la capacidad máxima.</p>
      */
     private void mostrarEstadoDetallado(){
         System.out.println();
@@ -194,8 +203,9 @@ public class MenuPila {
     /**
      * Pone en ejecución la operación Pop para eliminar el elemento ubicado
      * en el tope de la pila.
-     * Comprueba que la pila no esté vacía, obtiene el elemento que se eliminó
-     * y actualiza el índice del tope.
+     *
+     * <p>Comprueba que la pila no esté vacía, obtiene el elemento que se eliminó
+     * y actualiza el índice del tope.</p>
      */
     private void ejecutarPop(){
         Color.titulo("\n========== OPERACIÓN POP ==========");
@@ -279,7 +289,7 @@ public class MenuPila {
     }
 
     /**
-     * Verifica si la pila está vacía.
+     * Comprueba si la pila está vacía.
      * Muestra el valor del índice del tope y evalúa la condición
      * usada para determinar si existen elementos almacenados.
      */
@@ -311,9 +321,10 @@ public class MenuPila {
     }
 
     /**
-     * Verifica si la pila alcanzó su capacidad máxima.
-     * Muestra los valores del tope y la capacidad, y evalúa
-     * la condición que determina si se puede insertar elementos.
+     * Comprueba si la pila alcanzó su capacidad máxima.
+     *
+     * <p>Muestra los valores del tope y la capacidad, y evalúa
+     * la condición que determina si se puede insertar elementos.</p>
      */
     private void ejecutarEstaLlena(){
         Color.titulo("\n========== VERIFICAR PILA LLENA ==========");
@@ -344,8 +355,9 @@ public class MenuPila {
 
     /**
      * Consulta la cantidad de elementos almacenados en la pila.
-     * Muestra el valor del tope y el cálculo que se realizó a través
-     * de la expresión size = tope + 1.
+     *
+     * <p>Muestra el valor del tope y el cálculo que se realizó a través
+     * de la expresión size = tope + 1.</p>
      */
     private void ejecutarSize(){
         Color.titulo("\n========== CONSULTAR TAMAÑO DE LA PILA ==========");
@@ -371,9 +383,10 @@ public class MenuPila {
 
     /**
      * Muestra todos los elementos almacenados en la pila.
-     * Recorre el arreglo desde la posición del fondo hasta la posición
+     *
+     * <p>Recorre el arreglo desde la posición del fondo hasta la posición
      * que se indica por el tope, mostrando el índice y el valor de
-     * cada elemento.
+     * cada elemento.</p>
      */
     private void ejecutarMostrarContenido(){
         System.out.println("\nCONTENIDO DE LA PILA");
@@ -397,12 +410,465 @@ public class MenuPila {
     }
 
     /**
-     * Ejecuta el submenú de operaciones de la pila.
-     * Inicializa la estructura si todavía no ha sido creada y le permite
-     * al usuario seleccionar las operaciones disponibles hasta que
-     * elija regresar el menú principal.
+     * Muestra el submenú de conversión de expresiones.
      *
-     * @param scanner objeto ({@code Scanner}) compartido para leer
+     * <p>Facilita la selección de la conversión de infija a postfija
+     * o de infija a prefija usando una pila auxiliar.</p>
+     *
+     * @param scanner Objeto {@code Scanner} usado para leer las opciones.
+     */
+    private void ejecutarConversionExpresiones(Scanner scanner){
+        int opcion;
+
+        do {
+            System.out.println();
+
+            Color.titulo("  ╔══════════════════════════════════════════════╗");
+            Color.titulo("  ║          CONVERSIÓN DE EXPRESIONES           ║");
+            Color.titulo("  ╚══════════════════════════════════════════════╝");
+
+            System.out.println();
+
+            System.out.println(Color.CIAN + "       [1] " + Color.RESET + "Infija a Postfija");
+
+            System.out.println(Color.CIAN + "       [2] " + Color.RESET + "Infija a Prefija");
+
+            Color.separador();
+
+            System.out.println(Color.AMARILLO + Color.NEGRITA + "       [0] Regresar al menú de pilas" + Color.RESET);
+
+            System.out.println();
+
+            opcion = leerEntero(scanner, "Seleccione una conversión: ");
+
+            switch (opcion) {
+
+                case 1:
+                    convertirExpresion(scanner, false);
+                    break;
+
+                case 2:
+                    convertirExpresion(scanner, true);
+                    break;
+
+                case 0:
+                    Color.info("Regresando al menú de pilas...");
+                    break;
+
+                default:
+                    Color.advertencia("Opción inválida. Seleccione una opción del menú.");
+                    break;
+            }
+
+        } while (opcion != 0);
+
+    }
+
+    /**
+     * Decide si un carácter corresponde a un operador matemático válido.
+     *
+     * @param simbolo Carácter que se desea evaluar.
+     * @return {@code true} Si es un operador admitido; {@code false} en caso contrario.
+     */
+    private boolean esOperador(char simbolo){
+        return simbolo == '+' || simbolo == '-' || simbolo == '*' || simbolo == '/' || simbolo == '^';
+    }
+
+    /**
+     * Obtiene el nivel de precedencia de un operador matemático.
+     *
+     * <p>La potencia tiene precedencia 3, la multiplicación y división
+     * precedencia 2, y la suma y la resta precendencia 1.</p>
+     *
+     * @param operador Operador cuyo nivel de precedencia se consulta.
+     * @return Valor entero el cual representa su precedencia.
+     */
+    private int precedencia(char operador){
+        switch (operador) {
+            case '^':
+                return 3;
+
+            case '*':
+            case  '/':
+                return 2;
+
+            case '+':
+            case '-':
+                return 1;
+
+            default:
+                return 0;
+        }
+
+    }
+
+    /**
+     * Valida la estructura de la sintaxis básica de una expresión infija.
+     *
+     * <p>Verifica que haya una secuencia correcta de operandos
+     * y operadores, que los paréntesis estén equilibrados y que
+     * no existan operadores consecutivos ni operandos adyacentes.</p>
+     *
+     * @param expresion Expresión infija que se desea validar.
+     * @return {@code true} Si la expresión cumple las válidaciones básicas.
+     */
+    private boolean validarExpresion(String expresion){
+        if (expresion.isEmpty()) {
+            return false;
+        }
+
+        boolean esperarOperando = true;
+        int parentesisAbiertos = 0;
+
+        for (int i = 0; i < expresion.length(); i++) {
+            char simbolo = expresion.charAt(i);
+
+            if (Character.isLetterOrDigit(simbolo)) {
+                if (!esperarOperando) {
+                    return false;
+                }
+
+                esperarOperando = false;
+                
+            } else if (simbolo == '(') {
+                if (!esperarOperando) {
+                    return false;
+                }
+
+                parentesisAbiertos++;
+                esperarOperando = true;
+            } else if (simbolo == ')') {
+                if (esperarOperando || parentesisAbiertos == 0) {
+                    return false;
+                }
+
+                parentesisAbiertos--;
+                esperarOperando = false;
+            } else if (esOperador(simbolo)) {
+                if (esperarOperando) {
+                    return false;
+                }
+
+                esperarOperando = true;
+            } else {
+                return false;
+
+            }
+        }
+
+        return !esperarOperando && parentesisAbiertos == 0;
+    }
+
+    /**
+     * Ilustra de manera gráfica el contenido de la pila auxliar.
+     *
+     * <p>Los valores enteros que están almacenados se interpretan como caracteres
+     * y se presentan desde el fondo hasta la cima, identificando el tope.</p>
+     *
+     * @param pilaAux Pila auxiliar usada durante la conversión.
+     */
+    private void mostrarPilaConversion(PilaArreglo pilaAux){
+        System.out.print(Color.CIAN + "  Pila auxiliar: " + Color.RESET);
+
+        if (pilaAux.estaVacia()) {
+
+            System.out.println(Color.GRIS + "[ VACÍA ]" + Color.RESET);
+
+        } else {
+
+            System.out.print("[ ");
+
+            for (int i = 0; i <= pilaAux.getTope(); i++) {
+
+                char dato = (char) pilaAux.getDato(i);
+
+                if (i == pilaAux.getTope()) {
+
+                    System.out.print(Color.VERDE + Color.NEGRITA + dato + " ← TOPE " + Color.RESET);
+
+                } else {
+
+                    System.out.print(Color.BLANCO + dato + Color.RESET);
+                }
+
+                if (i < pilaAux.getTope()) {
+                    System.out.print(" | ");
+                }
+            }
+
+            System.out.println(" ]");
+        }
+
+    }
+
+    private void convertirExpresion(Scanner scanner, boolean convertirPrefija){
+        System.out.println();
+
+        Color.titulo(convertirPrefija
+                ? "========== CONVERSIÓN INFIJA A PREFIJA ==========" :
+                "========== CONVERSIÓN INFIJA A POSTFIJA ==========");
+
+        System.out.print(Color.AMARILLO + Color.NEGRITA + "  ➤ " + Color.RESET + "Ingrese la expresión infija: ");
+
+        String expresionOriginal = scanner.nextLine();
+
+        // Se eliminan los espacios de la expresión.
+        String expresion = expresionOriginal.replaceAll("\\s+", "");
+
+        // Se valida la estructura de la expresión.
+        if (!validarExpresion(expresion)) {
+
+            Color.error("La expresión ingresada no es válida.");
+
+            Color.info("Verifique los operandos, operadores y paréntesis.");
+
+            return;
+        }
+
+        // Se prepara la expresión que será recorrida.
+        String expresionProcesar = expresion;
+
+        if (convertirPrefija) {
+
+            StringBuilder invertida = new StringBuilder();
+
+            for (int i = expresion.length() - 1; i >= 0; i--) {
+
+                char simbolo = expresion.charAt(i);
+
+                if (simbolo == '(') {
+                    simbolo = ')';
+
+                } else if (simbolo == ')') {
+                    simbolo = '(';
+                }
+
+                invertida.append(simbolo);
+            }
+
+            expresionProcesar = invertida.toString();
+        }
+
+        // Pila auxiliar con capacidad suficiente para la expresión.
+        PilaArreglo pilaAux = new PilaArreglo(expresion.length());
+
+        // Almacena los operandos y operadores de salida.
+        StringBuilder resultado = new StringBuilder();
+
+        // Variables auxiliares del procedimiento.
+        char simbolo;
+        char operadorTope;
+        int i;
+
+        System.out.println();
+
+        Color.info("ESTADO INICIAL");
+
+        System.out.println(Color.CIAN + "  Expresión original: " + Color.RESET + expresion);
+
+        System.out.println(Color.CIAN + "  Expresión procesada: " + Color.RESET + expresionProcesar);
+
+        System.out.println(Color.CIAN + "  Resultado inicial: " + Color.RESET + "[ vacío ]");
+
+        mostrarPilaConversion(pilaAux);
+
+        System.out.println();
+
+        Color.titulo("========== EJECUCIÓN PASO A PASO ==========");
+
+        // Recorrido de los símbolos de la expresión.
+        for (i = 0; i < expresionProcesar.length(); i++) {
+
+            simbolo = expresionProcesar.charAt(i);
+
+            System.out.println();
+
+            Color.titulo("PASO " + (i + 1));
+
+            System.out.println(Color.CIAN + "  Variable i: " + Color.RESET + i);
+
+            System.out.println(Color.CIAN + "  Símbolo actual: " + Color.RESET + simbolo);
+
+            // Caso 1: el símbolo es un operando.
+            if (Character.isLetterOrDigit(simbolo)) {
+
+                Color.info("El símbolo es un operando.");
+
+                resultado.append(simbolo);
+
+                System.out.println(Color.VERDE + "  Se agrega al resultado: " + simbolo + Color.RESET);
+            }
+
+            // Caso 2: el símbolo es un paréntesis de apertura.
+            else if (simbolo == '(') {
+
+                Color.info("Se encontró un paréntesis de apertura.");
+
+                System.out.println(Color.CIAN + "  push(" + simbolo + ")" + Color.RESET);
+
+                pilaAux.push(simbolo);
+            }
+
+            // Caso 3: el símbolo es un paréntesis de cierre.
+            else if (simbolo == ')') {
+
+                Color.info("Se encontró un paréntesis de cierre.");
+
+                while (!pilaAux.estaVacia()
+                        && (char) pilaAux.peek() != '(') {
+
+                    char eliminado = (char) pilaAux.pop();
+
+                    resultado.append(eliminado);
+
+                    System.out.println(Color.AMARILLO + "  pop() -> " + eliminado + Color.RESET);
+
+                    System.out.println(Color.VERDE + "  Resultado: " + resultado + Color.RESET);
+
+                    mostrarPilaConversion(pilaAux);
+                }
+
+                // Se elimina el paréntesis de apertura.
+                if (!pilaAux.estaVacia()) {
+
+                    char eliminado = (char) pilaAux.pop();
+
+                    System.out.println(Color.AMARILLO + "  pop() -> " + eliminado + Color.RESET);
+                }
+            }
+
+            // Caso 4: el símbolo es un operador.
+            else if (esOperador(simbolo)) {
+
+                Color.info("Se encontró un operador.");
+
+                System.out.println(Color.CIAN + "  Operador actual: " + Color.RESET + simbolo);
+
+                while (!pilaAux.estaVacia() && (char) pilaAux.peek() != '(') {
+
+                    operadorTope = (char) pilaAux.peek();
+
+                    int prioridadTope = precedencia(operadorTope);
+                    int prioridadActual = precedencia(simbolo);
+
+                    System.out.println();
+
+                    Color.titulo("COMPARACIÓN DE PRECEDENCIA");
+
+                    System.out.println(Color.CIAN + "  Operador en la cima: " + Color.RESET + operadorTope);
+
+                    System.out.println(Color.CIAN + "  Operador actual: " + Color.RESET + simbolo);
+
+                    System.out.println(Color.CIAN + "  precedencia(tope): " + Color.RESET + prioridadTope);
+
+                    System.out.println(Color.CIAN + "  precedencia(actual): " + Color.RESET + prioridadActual);
+
+                    /*
+                     * Para postfija desapilamos cuando el operador
+                     * de la cima tiene mayor precedencia o cuando
+                     * tienen igual precedencia y el operador actual
+                     * es asociativo por la izquierda.
+                     *
+                     * Para prefija se invierte la asociatividad,
+                     * debido al recorrido de la expresión invertida.
+                     */
+                    boolean desapilar;
+
+                    if (convertirPrefija) {
+
+                        desapilar = prioridadTope > prioridadActual || (prioridadTope == prioridadActual &&
+                                simbolo == '^');
+
+                    } else {
+
+                        desapilar = prioridadTope > prioridadActual || (prioridadTope == prioridadActual &&
+                                simbolo != '^');
+                    }
+
+                    System.out.println(Color.CIAN + "  ¿Desapilar?: " + Color.RESET + desapilar);
+
+                    if (!desapilar) {
+                        break;
+                    }
+
+                    char eliminado = (char) pilaAux.pop();
+
+                    resultado.append(eliminado);
+
+                    Color.exito("Se desapila el operador: " + eliminado);
+
+                    System.out.println(Color.VERDE + "  Resultado: " + resultado + Color.RESET);
+
+                    mostrarPilaConversion(pilaAux);
+                }
+
+                // Se inserta el operador actual en la pila.
+                pilaAux.push(simbolo);
+
+                Color.exito("Se apila el operador: " + simbolo);
+            }
+
+            System.out.println();
+
+            Color.titulo("ESTADO DESPUÉS DEL PASO " + (i + 1));
+
+            System.out.println(Color.VERDE + "  Resultado parcial: " + resultado + Color.RESET);
+
+            mostrarPilaConversion(pilaAux);
+        }
+
+        // Se extraen los operadores que permanecen en la pila.
+        System.out.println();
+
+        Color.titulo("PASO FINAL: VACIAR LA PILA AUXILIAR");
+
+        while (!pilaAux.estaVacia()) {
+
+            char eliminado = (char) pilaAux.pop();
+
+            resultado.append(eliminado);
+
+            System.out.println(Color.AMARILLO + "  pop() -> " + eliminado + Color.RESET);
+
+            System.out.println(Color.VERDE + "  Resultado parcial: " + resultado + Color.RESET);
+
+            mostrarPilaConversion(pilaAux);
+        }
+
+        // Se invierte el resultado cuando se solicita notación prefija.
+        String resultadoFinal;
+
+        if (convertirPrefija) {
+
+            resultadoFinal = resultado.reverse().toString();
+
+        } else {
+
+            resultadoFinal = resultado.toString();
+        }
+
+        System.out.println();
+
+        Color.titulo("========== ESTADO FINAL ==========");
+
+        System.out.println(Color.CIAN + "  Expresión infija: " + Color.RESET + expresion);
+
+        System.out.println(Color.CIAN + "  Resultado: " + Color.VERDE + Color.NEGRITA + resultadoFinal + Color.RESET);
+
+        mostrarPilaConversion(pilaAux);
+
+        Color.exito("La conversión se realizó correctamente.");
+
+        System.out.println();
+    }
+
+    /**
+     * Ejecuta el menú de operaciones de la pila.
+     * <p>Inicializa la estructura si todavía no ha sido creada y le permite
+     * al usuario seleccionar las operaciones disponibles hasta que
+     * elija regresar el menú principal.</p>
+     *
+     * @param scanner Objeto ({@code Scanner}) compartido para leer
      *                las opciones y los datos ingresados por el usuario.
      */
     public void ejecutaMenu(Scanner scanner){
@@ -423,29 +889,39 @@ public class MenuPila {
                     case 1:
                         ejecutarPush(scanner);
                         break;
+
                     case 2:
                         ejecutarPop();
                         break;
+
                     case 3:
                         ejecutarPeek();
                         break;
+
                     case 4:
                         ejecutarEstaVacia();
                         break;
+
                     case 5:
                         ejecutarEstaLlena();
                         break;
+
                     case 6:
                         ejecutarSize();
                         break;
+
                     case 7:
                         ejecutarMostrarContenido();
-
                         break;
+                    case 8:
+                        ejecutarConversionExpresiones(scanner);
+                        break;
+
                     case 0:
                         System.out.println();
                         Color.info("Regresando al menú principal...");
                         break;
+
                     default:
                         Color.advertencia("Opción inválida. Seleccione una opción del menú.");
                         break;
