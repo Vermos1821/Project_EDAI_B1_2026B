@@ -17,7 +17,7 @@ import java.util.Scanner;
  *  - tam    : cantidad de elementos almacenados
  * Cada operacion muestra: estado inicial, pasos (con variables auxiliares) y estado final.
  */
-public class Bicola {
+class Bicola {
 
     // ---- Colores ANSI propios (para no depender de otras clases) ----
     static final String RESET = "\u001B[0m";
@@ -419,7 +419,7 @@ public class Bicola {
 /**
  * Menu del TAD Bicola. Se invoca desde el menu principal con:  MenuBicola.ejecutar(sc);
  */
-class MenuBicola {
+public class MenuBicola {
 
     private static final int CAPACIDAD_MAX = 10;   // para que el dibujo quepa en consola
 
