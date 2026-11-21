@@ -142,20 +142,4 @@ public class Array {
         return elementoEliminado;
     }
 
-    /**
-     * Establece manualmente un dato en una posición del arreglo.
-     * Método auxiliar para inicialización masiva o pruebas.
-     *
-     * @param posicion Posición donde se asignará el dato.
-     * @param elemento Valor a asignar.
-     */
-    public void setDatoDirecto(int posicion, int elemento) {
-        if (posicion < 0 || posicion >= datos.length) {
-            throw new IndexOutOfBoundsException("Índice fuera del arreglo.");
-        }
-        datos[posicion] = elemento;
-        if (posicion >= tamanio) {
-            tamanio = posicion + 1;
-        }
-    }
 }
