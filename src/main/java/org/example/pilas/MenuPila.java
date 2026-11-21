@@ -110,32 +110,63 @@ public class MenuPila {
     }
 
     /**
-     * Muestra de manera detallada el estado actual de la pila.
+     * Muestra de manera detallada y vertical el estado actual de la pila.
      *
-     * <p>Representa los elementos almacenados, las posiciones disponibles,
-     * el índice del tope, la cantidad de elementos y la capacidad máxima.</p>
+     * <p>Representa de manera gráfica la pila desde la posición superior (capacidad - 1)
+     * hasta el fondo (0), indicando la posición del tope, las posiciones disponibles,
+     * la cantidad de elementos y la capacidad máxima.</p>
      */
     private void mostrarEstadoDetallado(){
         System.out.println();
         Color.titulo("  ┌──────────── ESTADO ACTUAL DE LA PILA ────────────┐");
 
-        System.out.print(Color.CIAN + Color.NEGRITA + "  Arreglo: " + Color.RESET + "[");
+        System.out.println(Color.CIAN + Color.NEGRITA + "  Representación vertical (LIFO):" + Color.RESET);
+        System.out.println();
 
-        for (int i = 0; i < pila.getCapacidad(); i++){
+        System.out.println(Color.BLANCO + "        ┌─────────┐" + Color.RESET);
+
+        for (int i = pila.getCapacidad() - 1; i >= 0; i--){
+            String etiquetaIndice = String.format("  [%d]  ", i);
+            String contenido;
+            String colorContenido;
+
             if (i <= pila.getTope()){
-                System.out.print(Color.VERDE + Color.NEGRITA + pila.getDato(i) + Color.RESET);
+                contenido = String.format("%5d  ", pila.getDato(i));
+                colorContenido = Color.VERDE + Color.NEGRITA;
 
             } else {
-                System.out.print(Color.GRIS + "_" + Color.RESET);
+                contenido = "   _   ";
+                colorContenido = Color.GRIS;
             }
 
-            if (i < pila.getCapacidad() - 1){
-                System.out.print(", ");
+            String indicador = "";
+            if (i == pila.getTope()){
+                indicador = Color.AMARILLO + Color.NEGRITA + "  ◄── TOPE" + Color.RESET;
+
+            } else if (i == 0 && pila.estaVacia()) {
+                indicador = Color.GRIS + "  (Fondo)" + Color.RESET;
+
+            } else if (i == 0) {
+                indicador = Color.CIAN + "  (Fondo)" + Color.RESET;
+
+            }
+
+            System.out.println(Color.CIAN + etiquetaIndice + Color.BLANCO + " │ " + colorContenido + contenido +
+                                Color.BLANCO + "│" + indicador);
+
+            if (i > 0) {
+                System.out.println(Color.BLANCO + "        ├─────────┤" + Color.RESET);
+
+            } else {
+                System.out.println(Color.BLANCO + "        └─────────┘" + Color.RESET);
+
             }
 
         }
 
-        System.out.println("]");
+        if (pila.estaVacia()) {
+            System.out.println(Color.AMARILLO + Color.NEGRITA + "  [-1]   ◄── TOPE (Pila vacía)" + Color.RESET);
+        }
 
         System.out.println(Color.CIAN + "  Tope: " + Color.RESET + Color.AMARILLO + pila.getTope() + Color.RESET);
         System.out.println(Color.CIAN + "  Elementos: " + Color.RESET + Color.BLANCO + pila.size() + Color.RESET);
