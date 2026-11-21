@@ -273,39 +273,39 @@ public class ListaSimple {
      * Elimina el nodo de una posición válida (base cero).
      * @param posicion índice del nodo a eliminar
      */
-    public void eliminarPosicion(int posicion) ("Se desconecta el nodo retirado.", "retirado=" + actual.dato + ", retirado.siguiente=null");
-        Co{
-            inicio("ELIMINAR POSICION " + posicion);
-            if (posicion < 0 || posicion >= cantidad) {
-                paso("Posicion inexistente; no se modifica la lista.", "posicion=" + posicion + ", rango=[0," + (cantidad - 1) + "]");
-                Color.error("Posicion invalida.");
-                fin();
-                return;
+    public void eliminarPosicion(int posicion) {
+        inicio("ELIMINAR POSICION " + posicion);
+        if (posicion < 0 || posicion >= cantidad) {
+            paso("Posicion inexistente; no se modifica la lista.", "posicion=" + posicion + ", rango=[0," + (cantidad - 1) + "]");
+            Color.error("Posicion invalida.");
+            fin();
+            return;
+        }
+        Nodo actual;
+        if (posicion == 0) {
+            actual = cabeza;
+            paso("Se identifica el primer nodo.", "actual=" + actual.dato + ", siguiente=" + valor(actual.siguiente));
+            cabeza = cabeza.siguiente;
+            cantidad--;
+            paso("cabeza avanza al siguiente nodo.", "cabeza=" + valor(cabeza) + ", cantidad=" + cantidad);
+        } else {
+            Nodo anterior = cabeza;
+            int indice = 0;
+            paso("anterior comienza en cabeza.", "anterior=" + anterior.dato + ", indice=0");
+            while (indice < posicion - 1) {
+                anterior = anterior.siguiente;
+                indice++;
+                paso("Se avanza anterior.", "anterior=" + anterior.dato + ", indice=" + indice);
             }
-            Nodo actual;
-            if (posicion == 0) {
-                actual = cabeza;
-                paso("Se identifica el primer nodo.", "actual=" + actual.dato + ", siguiente=" + valor(actual.siguiente));
-                cabeza = cabeza.siguiente;
-                cantidad--;
-                paso("cabeza avanza al siguiente nodo.", "cabeza=" + valor(cabeza) + ", cantidad=" + cantidad);
-            } else {
-                Nodo anterior = cabeza;
-                int indice = 0;
-                paso("anterior comienza en cabeza.", "anterior=" + anterior.dato + ", indice=0");
-                while (indice < posicion - 1) {
-                    anterior = anterior.siguiente;
-                    indice++;
-                    paso("Se avanza anterior.", "anterior=" + anterior.dato + ", indice=" + indice);
-                }
-                actual = anterior.siguiente;
-                paso("Se identifica el nodo objetivo.", "anterior=" + anterior.dato + ", actual=" + actual.dato + ", siguiente=" + valor(actual.siguiente));
-                anterior.siguiente = actual.siguiente;
-                cantidad--;
-                paso("Se reconecta anterior con el sucesor.", "anterior=" + anterior.dato + ", siguiente=" + valor(anterior.siguiente) + ", cantidad=" + cantidad);
-            }
-            actual.siguiente = null;
-            pasolor.exito("Nodo eliminado en posicion " + posicion + ".");
+            actual = anterior.siguiente;
+            paso("Se identifica el nodo objetivo.", "anterior=" + anterior.dato + ", actual=" + actual.dato + ", siguiente=" + valor(actual.siguiente));
+            anterior.siguiente = actual.siguiente;
+            cantidad--;
+            paso("Se reconecta anterior con el sucesor.", "anterior=" + anterior.dato + ", siguiente=" + valor(anterior.siguiente) + ", cantidad=" + cantidad);
+        }
+        actual.siguiente = null;
+        paso("Se desconecta el nodo retirado.", "retirado=" + actual.dato + ", retirado.siguiente=null");
+        Color.exito("Nodo eliminado en posicion " + posicion + ".");
         fin();
     }
 
