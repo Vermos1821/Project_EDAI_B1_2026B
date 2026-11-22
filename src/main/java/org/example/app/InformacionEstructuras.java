@@ -88,20 +88,6 @@ public final class InformacionEstructuras {
                 "  Tipos: general, entrada restringida y salida restringida."
         );
 
-        System.out.println();
-        Color.separador();
-
-        Color.info("5. LISTAS SIMPLEMENTE ENLAZADAS");
-
-        System.out.println(
-                "  Estructura dinámica formada por nodos enlazados."
-        );
-        System.out.println(
-                "  Cada nodo almacena un dato y una referencia al siguiente."
-        );
-        System.out.println(
-                "  Permite insertar, recorrer, buscar y eliminar nodos."
-        );
 
         System.out.println();
         Color.separador();
@@ -116,6 +102,21 @@ public final class InformacionEstructuras {
         );
         System.out.println(
                 "  Necesita un caso base y un caso recursivo."
+        );
+
+        System.out.println();
+        Color.separador();
+
+        Color.info("5. LISTAS SIMPLEMENTE ENLAZADAS");
+
+        System.out.println(
+                "  Estructura dinámica formada por nodos enlazados."
+        );
+        System.out.println(
+                "  Cada nodo almacena un dato y una referencia al siguiente."
+        );
+        System.out.println(
+                "  Permite insertar, recorrer, buscar y eliminar nodos."
         );
 
         System.out.println();
