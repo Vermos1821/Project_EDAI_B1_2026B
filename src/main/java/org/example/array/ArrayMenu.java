@@ -439,7 +439,7 @@ public class ArrayMenu {
      *
      * @param scanner Objeto {@code Scanner} compartido para lectura por consola.
      */
-    public void ejecutaMenu(Scanner scanner) {
+    public void ejecutarMenu(Scanner scanner) {
         if (array == null) {
             inicializarArray(scanner);
         }
