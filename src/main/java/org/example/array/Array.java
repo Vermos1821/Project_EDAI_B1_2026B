@@ -1,4 +1,7 @@
+
 package org.example.array;
+
+import java.util.Arrays;
 
 /**
  * Implementación de la estructura de datos de un Array Unidimensional de capacidad fija.
@@ -140,6 +143,30 @@ public class Array {
         tamanio--;
 
         return elementoEliminado;
+    }
+
+    /**
+     * Busca todas las apariciones de un valor entre los elementos almacenados.
+     *
+     * <p>Recorre únicamente las posiciones ocupadas (0 a tamano - 1) comparando
+     * cada elemento con el valor buscado.</p>
+     *
+     * @param valor Valor entero a buscar.
+     * @return Posiciones donde se encontró el valor, en orden ascendente;
+     *         un arreglo vacío si el valor no existe.
+     */
+    public int[] buscar(int valor) {
+        int[] posiciones = new int[tamanio];
+        int coincidencias = 0;
+
+        for (int i = 0; i < tamanio; i++) {
+            if (datos[i] == valor) {
+                posiciones[coincidencias] = i;
+                coincidencias++;
+            }
+        }
+
+        return Arrays.copyOf(posiciones, coincidencias);
     }
 
 }

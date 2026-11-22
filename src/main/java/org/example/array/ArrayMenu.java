@@ -128,6 +128,39 @@ public class ArrayMenu {
     }
 
     /**
+     * Muestra la Etapa 1 de una operación: el estado inicial del Array.
+     */
+    private void mostrarEtapaInicial() {
+        Color.info("ETAPA 1: ESTADO INICIAL");
+        mostrarEstadoDetallado();
+    }
+
+    /**
+     * Muestra el encabezado de las Etapas 2 y 3 con la descripción estándar
+     * (ejecución paso a paso y variables auxiliares).
+     */
+    private void mostrarEncabezadoEjecucion() {
+        mostrarEncabezadoEjecucion("EJECUCIÓN PASO A PASO Y VARIABLES AUXILIARES");
+    }
+
+    /**
+     * Muestra el encabezado de las Etapas 2 y 3 con una descripción personalizada.
+     *
+     * @param descripcion Texto que acompaña al encabezado "ETAPA 2 & 3".
+     */
+    private void mostrarEncabezadoEjecucion(String descripcion) {
+        Color.titulo("ETAPA 2 & 3: " + descripcion);
+    }
+
+    /**
+     * Muestra la Etapa 4 de una operación: el estado final del Array.
+     */
+    private void mostrarEtapaFinal() {
+        Color.info("ETAPA 4: ESTADO FINAL");
+        mostrarEstadoDetallado();
+    }
+
+    /**
      * Inicializa el array especificando su capacidad y elementos iniciales opcionales.
      */
     private void inicializarArray(Scanner scanner) {
@@ -171,11 +204,10 @@ public class ArrayMenu {
         Color.titulo("\n========== OPERACIÓN: RECORRER Y MOSTRAR ==========");
 
         // ETAPA 1: ESTADO INICIAL
-        Color.info("ETAPA 1: ESTADO INICIAL");
-        mostrarEstadoDetallado();
+        mostrarEtapaInicial();
 
         // ETAPA 2 & 3: PASO A PASO Y VARIABLES AUXILIARES
-        Color.titulo("ETAPA 2 & 3: EJECUCIÓN PASO A PASO Y VARIABLES AUXILIARES");
+        mostrarEncabezadoEjecucion();
         if (array.estaVacio()) {
             Color.advertencia("El array está vacío. No hay elementos ocupados para recorrer.");
         } else {
@@ -197,8 +229,7 @@ public class ArrayMenu {
         System.out.println();
 
         // ETAPA 4: ESTADO FINAL
-        Color.info("ETAPA 4: ESTADO FINAL");
-        mostrarEstadoDetallado();
+        mostrarEtapaFinal();
         Color.exito("Recorrido finalizado exitosamente.");
     }
 
@@ -209,14 +240,12 @@ public class ArrayMenu {
         Color.titulo("\n========== OPERACIÓN: INSERTAR EN POSICIÓN ==========");
 
         // ETAPA 1: ESTADO INICIAL
-        Color.info("ETAPA 1: ESTADO INICIAL");
-        mostrarEstadoDetallado();
+        mostrarEtapaInicial();
 
         // Comprobación de límites (Array Lleno)
         if (array.estaLleno()) {
             Color.error("No se puede insertar. El array está LLENO (Desbordamiento).");
-            Color.info("ETAPA 4: ESTADO FINAL");
-            mostrarEstadoDetallado();
+            mostrarEtapaFinal();
             return;
         }
 
@@ -227,14 +256,13 @@ public class ArrayMenu {
         if (pos < 0 || pos > array.getTamanio()) {
             Color.error("Posición inválida. No se puede insertar en el índice " + pos + ".");
             Color.info("Rango válido para inserción actual: [0, " + array.getTamanio() + "].");
-            Color.info("ETAPA 4: ESTADO FINAL");
-            mostrarEstadoDetallado();
+            mostrarEtapaFinal();
             return;
         }
 
         System.out.println();
         // ETAPA 2 & 3: PASO A PASO Y VARIABLES AUXILIARES
-        Color.titulo("ETAPA 2 & 3: EJECUCIÓN PASO A PASO Y VARIABLES AUXILIARES");
+        mostrarEncabezadoEjecucion();
         System.out.println(Color.CIAN + "Variables Auxiliares Iniciales: " + Color.RESET +
                 "elemento = " + elemento + ", posicion = " + pos + ", tamano_inicial = " + array.getTamanio());
 
@@ -259,8 +287,7 @@ public class ArrayMenu {
         System.out.println();
 
         // ETAPA 4: ESTADO FINAL
-        Color.info("ETAPA 4: ESTADO FINAL");
-        mostrarEstadoDetallado();
+        mostrarEtapaFinal();
         Color.exito("Elemento " + elemento + " insertado correctamente en la posición " + pos + ".");
     }
 
@@ -271,14 +298,12 @@ public class ArrayMenu {
         Color.titulo("\n========== OPERACIÓN: ELIMINAR DE POSICIÓN ==========");
 
         // ETAPA 1: ESTADO INICIAL
-        Color.info("ETAPA 1: ESTADO INICIAL");
-        mostrarEstadoDetallado();
+        mostrarEtapaInicial();
 
         // Comprobación de Array Vacío
         if (array.estaVacio()) {
             Color.error("No se puede eliminar. El array está VACÍO (Subdesbordamiento).");
-            Color.info("ETAPA 4: ESTADO FINAL");
-            mostrarEstadoDetallado();
+            mostrarEtapaFinal();
             return;
         }
 
@@ -288,14 +313,13 @@ public class ArrayMenu {
         if (pos < 0 || pos >= array.getTamanio()) {
             Color.error("Posición inválida. El índice " + pos + " está fuera de los elementos ocupados.");
             Color.info("Rango válido para eliminación: [0, " + (array.getTamanio() - 1) + "].");
-            Color.info("ETAPA 4: ESTADO FINAL");
-            mostrarEstadoDetallado();
+            mostrarEtapaFinal();
             return;
         }
 
         System.out.println();
         // ETAPA 2 & 3: PASO A PASO Y VARIABLES AUXILIARES
-        Color.titulo("ETAPA 2 & 3: EJECUCIÓN PASO A PASO Y VARIABLES AUXILIARES");
+        mostrarEncabezadoEjecucion();
 
         int valorAEliminar = array.getDato(pos);
         System.out.println(Color.CIAN + "Variables Auxiliares Iniciales: " + Color.RESET +
@@ -322,8 +346,7 @@ public class ArrayMenu {
         System.out.println();
 
         // ETAPA 4: ESTADO FINAL
-        Color.info("ETAPA 4: ESTADO FINAL");
-        mostrarEstadoDetallado();
+        mostrarEtapaFinal();
         Color.exito("Se eliminó exitosamente el elemento " + eliminado + " de la posición " + pos + ".");
     }
 
@@ -334,13 +357,11 @@ public class ArrayMenu {
         Color.titulo("\n========== OPERACIÓN: BUSCAR UN VALOR ==========");
 
         // ETAPA 1: ESTADO INICIAL
-        Color.info("ETAPA 1: ESTADO INICIAL");
-        mostrarEstadoDetallado();
+        mostrarEtapaInicial();
 
         if (array.estaVacio()) {
             Color.advertencia("El array está vacío. El valor buscado no existe.");
-            Color.info("ETAPA 4: ESTADO FINAL");
-            mostrarEstadoDetallado();
+            mostrarEtapaFinal();
             return;
         }
 
@@ -348,10 +369,9 @@ public class ArrayMenu {
 
         System.out.println();
         // ETAPA 2 & 3: PASO A PASO Y VARIABLES AUXILIARES
-        Color.titulo("ETAPA 2 & 3: EJECUCIÓN PASO A PASO Y VARIABLES AUXILIARES");
+        mostrarEncabezadoEjecucion();
 
         int coincidencias = 0;
-        String posicionesEncontradas = "";
 
         System.out.println(Color.CIAN + "Variables Auxiliares Iniciales: " + Color.RESET +
                 "valorBuscado = " + valorBuscado + ", coincidencias = 0, posicionesEncontradas = \"\"");
@@ -363,10 +383,6 @@ public class ArrayMenu {
 
             if (esIgual) {
                 coincidencias++;
-                if (!posicionesEncontradas.isEmpty()) {
-                    posicionesEncontradas += ", ";
-                }
-                posicionesEncontradas += i;
             }
 
             System.out.println(Color.BLANCO + "  Paso " + (i + 1) + ":" + Color.RESET +
@@ -378,17 +394,36 @@ public class ArrayMenu {
 
         System.out.println();
 
-        // ETAPA 4: ESTADO FINAL
-        Color.info("ETAPA 4: ESTADO FINAL");
-        mostrarEstadoDetallado();
+        // Resultado de la búsqueda
+        int[] posiciones = array.buscar(valorBuscado);
 
-        if (coincidencias > 0) {
+        // ETAPA 4: ESTADO FINAL
+        mostrarEtapaFinal();
+
+        if (posiciones.length > 0) {
             Color.exito("El valor " + valorBuscado + " FUE ENCONTRADO.");
-            Color.info("Total de coincidencias: " + coincidencias);
-            Color.info("Posición(es) en el array: [" + posicionesEncontradas + "]");
+            Color.info("Total de coincidencias: " + posiciones.length);
+            Color.info("Posición(es) en el array: [" + formatearPosiciones(posiciones) + "]");
         } else {
             Color.advertencia("El valor " + valorBuscado + " NO se encuentra en el array.");
         }
+    }
+
+    /**
+     * Da formato a una lista de posiciones separadas por coma (por ejemplo: {@code 0, 3, 5}).
+     *
+     * @param posiciones Posiciones a mostrar.
+     * @return Texto con las posiciones separadas por coma.
+     */
+    private String formatearPosiciones(int[] posiciones) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < posiciones.length; i++) {
+            if (i > 0) {
+                sb.append(", ");
+            }
+            sb.append(posiciones[i]);
+        }
+        return sb.toString();
     }
 
     /**
@@ -398,11 +433,10 @@ public class ArrayMenu {
         Color.titulo("\n========== VERIFICAR ESTADOS DEL ARRAY ==========");
 
         // ETAPA 1: ESTADO INICIAL
-        Color.info("ETAPA 1: ESTADO INICIAL");
-        mostrarEstadoDetallado();
+        mostrarEtapaInicial();
 
         // ETAPA 2 & 3: PASO A PASO Y VARIABLES AUXILIARES
-        Color.titulo("ETAPA 2 & 3: EVALUACIÓN DE CONDICIONES Y VARIABLES AUXILIARES");
+        mostrarEncabezadoEjecucion("EVALUACIÓN DE CONDICIONES Y VARIABLES AUXILIARES");
 
         boolean vacio = array.estaVacio();
         boolean lleno = array.estaLleno();
@@ -422,8 +456,7 @@ public class ArrayMenu {
         System.out.println();
 
         // ETAPA 4: ESTADO FINAL
-        Color.info("ETAPA 4: ESTADO FINAL");
-        mostrarEstadoDetallado();
+        mostrarEtapaFinal();
 
         if (vacio) {
             Color.advertencia("Resultado: El array está actualmente VACÍO.");
