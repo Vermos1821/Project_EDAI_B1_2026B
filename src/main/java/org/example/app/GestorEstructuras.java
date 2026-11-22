@@ -69,10 +69,10 @@ public class GestorEstructuras {
                 + Color.RESET + "Bicolas");
 
         System.out.println(Color.CIAN + "       [5] "
-                + Color.RESET + "Listas simplemente enlazadas");
+                + Color.RESET + "Recursión");
 
         System.out.println(Color.CIAN + "       [6] "
-                + Color.RESET + "Recursión");
+                + Color.RESET + "Listas simplemente enlazadas");
 
         Color.separador();
 
@@ -144,14 +144,14 @@ public class GestorEstructuras {
                     break;
 
                 case 5:
-                    MenuLista.ejecutar(scanner);
-                    break;
-
-                case 6:
                     // Pendiente de conectar cuando esté disponible el módulo de recursión de no se quien mierda.
                     Color.advertencia(
                             "El módulo de recursión aún no está integrado. DOWNS"
                     );
+                    break;
+
+                case 6:
+                    MenuLista.ejecutar(scanner);
                     break;
 
                 case 7:
