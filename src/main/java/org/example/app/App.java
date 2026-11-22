@@ -1,9 +1,13 @@
 package org.example.app;
-import org.example.listas.MenuLista;
 
-
+import java.util.Scanner;
 
 public class App {
-    static void main() {
+
+    public static void main(String[] args) {
+        try (Scanner scanner = new Scanner(System.in)) {
+            GestorEstructuras gestor = new GestorEstructuras(scanner);
+            gestor.ejecutar();
+        }
     }
 }
