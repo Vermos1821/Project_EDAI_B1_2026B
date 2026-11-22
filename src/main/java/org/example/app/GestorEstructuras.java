@@ -5,6 +5,7 @@ import org.example.bicola.MenuBicola;
 import org.example.cola.ColaMenu;
 import org.example.listas.MenuLista;
 import org.example.pilas.MenuPila;
+import org.example.recursion.MenuRecursion;
 import org.example.util.Color;
 
 import java.util.Scanner;
@@ -22,6 +23,7 @@ public class GestorEstructuras {
     private final ArrayMenu arrayMenu;
     private final MenuPila menuPila;
     private final ColaMenu colaMenu;
+    private final MenuRecursion menuRecursion;
 
     /**
      * Inicializa el gestor con un Scanner compartido.
@@ -34,6 +36,7 @@ public class GestorEstructuras {
         this.arrayMenu = new ArrayMenu();
         this.menuPila = new MenuPila();
         this.colaMenu = new ColaMenu();
+        this.menuRecursion = new MenuRecursion();
     }
 
     /**
@@ -144,10 +147,7 @@ public class GestorEstructuras {
                     break;
 
                 case 5:
-                    // Pendiente de conectar cuando esté disponible el módulo de recursión de no se quien mierda.
-                    Color.advertencia(
-                            "El módulo de recursión aún no está integrado. DOWNS"
-                    );
+                    menuRecursion.ejecutaMenu(scanner);
                     break;
 
                 case 6:
