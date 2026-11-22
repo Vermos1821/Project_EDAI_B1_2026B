@@ -92,7 +92,7 @@ public final class InformacionEstructuras {
         System.out.println();
         Color.separador();
 
-        Color.info("6. RECURSIÓN");
+        Color.info("5. RECURSIÓN");
 
         System.out.println(
                 "  Técnica de programación en la que un método"
@@ -107,7 +107,7 @@ public final class InformacionEstructuras {
         System.out.println();
         Color.separador();
 
-        Color.info("5. LISTAS SIMPLEMENTE ENLAZADAS");
+        Color.info("6. LISTAS SIMPLEMENTE ENLAZADAS");
 
         System.out.println(
                 "  Estructura dinámica formada por nodos enlazados."
