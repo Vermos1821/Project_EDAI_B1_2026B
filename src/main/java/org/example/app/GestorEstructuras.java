@@ -99,7 +99,7 @@ public class GestorEstructuras {
                     + Color.NEGRITA
                     + "  ➤ "
                     + Color.RESET
-                    + "Seleccione una opción six seven: ");
+                    + "Seleccione una opción: ");
 
             String entrada = scanner.nextLine().trim();
 
