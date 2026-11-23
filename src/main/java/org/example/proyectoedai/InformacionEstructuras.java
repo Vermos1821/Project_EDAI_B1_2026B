@@ -1,4 +1,4 @@
-package org.example.app;
+package org.example.proyectoedai;
 
 import org.example.util.Color;
 

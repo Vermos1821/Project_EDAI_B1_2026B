@@ -1,4 +1,4 @@
-package org.example.app;
+package org.example.proyectoedai;
 
 import org.example.array.ArrayMenu;
 import org.example.bicola.MenuBicola;
